@@ -23,14 +23,36 @@ namespace BallThatCouldBeConsideredBouncing
         public Form1()
         {
             InitializeComponent();
+            InitilizeApp();
+        }
+
+        private void InitilizeApp()
+        {
             InitializeMainTimer();
             InitializeBouncerMovement();
+
+            this.KeyDown += new KeyEventHandler(App_Keydown);
+        }
+
+        private void App_Keydown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Z)
+            {
+                mainTime.Interval += 10;
+            }
+            else if(e.KeyCode == Keys.X)
+            {
+                if(mainTime.Interval > 1)
+                {
+                    mainTime.Interval -= 10;
+                }
+            }
         }
 
         private void InitializeMainTimer()
         {
             mainTime = new Timer();
-            mainTime.Interval = 10;
+            mainTime.Interval = 1;
             mainTime.Tick += new EventHandler(MainTime_Tick);
             mainTime.Start();
         }
